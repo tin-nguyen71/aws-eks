@@ -1,0 +1,21 @@
+name: Pre-Commit
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  preCommitValidation:
+    name: Pre Commit Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v3
+      - uses: tuananh/actions/setup-tflint@main
+      - uses: tuananh/actions/setup-tfdocs@main
+      - uses: pre-commit/action@v3.0.0
+      - name: Running pre-commit check
+        run: |
+          pre-commit run -a
+        shell: bash
